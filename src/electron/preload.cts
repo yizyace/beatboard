@@ -1,4 +1,4 @@
-import { contextBridge, ipcRenderer } from 'electron'
+const { contextBridge, ipcRenderer } = require('electron')
 
 const electronAPI = {
   getHomePath: (): Promise<string> =>
@@ -27,5 +27,3 @@ const electronAPI = {
 }
 
 contextBridge.exposeInMainWorld('electronAPI', electronAPI)
-
-export type ElectronAPI = typeof electronAPI

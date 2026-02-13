@@ -7,11 +7,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:electron": "electron-builder",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "electron:dev": "concurrently \"vite\" \"npm run electron:start\"",
+    "electron:start": "rm -rf dist-electron && tsc -p tsconfig.electron.json && VITE_DEV_SERVER_URL=http://localhost:5173 electron .",
+    "electron:build": "npm run build && rm -rf dist-electron && tsc -p tsconfig.electron.json && electron-builder",
+    "electron:preview": "npm run build && rm -rf dist-electron && tsc -p tsconfig.electron.json && electron ."
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -34,6 +37,7 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "concurrently": "^9.2.1",
     "electron": "^40.4.0",
     "electron-builder": "^26.7.0",
     "eslint": "^9.39.1",
@@ -45,8 +49,6 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.48.0",
     "vite": "^7.3.1",
-    "vite-plugin-electron": "^0.29.0",
-    "vite-plugin-electron-renderer": "^0.14.6",
     "vitest": "^4.0.18"
   }
 }
