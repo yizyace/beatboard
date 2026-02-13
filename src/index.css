@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+@theme {
+  --color-lane-bg: #f3f4f6;
+  --color-lane-bg-dark: rgba(31, 41, 55, 0.5);
+  --spacing-lane-width: 18rem;
+  --spacing-card-detail-width: 30rem;
+  --color-status-synced: #22c55e;
+  --color-status-syncing: #3b82f6;
+  --color-status-offline: #eab308;
+  --color-status-conflict: #ef4444;
+  --color-status-error: #ef4444;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.2s ease-out;
+}

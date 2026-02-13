@@ -1,13 +1,24 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
+import { readSettings } from '../lib/repo/settings'
 
 export const Route = createFileRoute('/')({
-  component: Index,
+  beforeLoad: async () => {
+    try {
+      const settings = await readSettings()
+      if (settings) {
+        throw redirect({ to: '/board' })
+      }
+    } catch (err) {
+      // Re-throw redirects
+      if (
+        err &&
+        typeof err === 'object' &&
+        'to' in err
+      ) {
+        throw err
+      }
+      // Settings don't exist — go to setup
+    }
+    throw redirect({ to: '/setup' })
+  },
 })
-
-function Index() {
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      <h1 className="text-4xl font-bold">Hello World</h1>
-    </div>
-  )
-}
